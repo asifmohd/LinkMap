@@ -1,5 +1,11 @@
 # LinkMap解析工具：检查每个类占用大小
 
+This repo is a fork of https://github.com/huanxsd/LinkMap
+
+Only changes in this repo is English translation of UI facing text taken from Google Translate
+
+All credits to [huanxsd](https://github.com/huanxsd) for sharing this app 🙏
+
 ## 概述
 
 一个大型的项目，只是代码段就有可能超过100M，算上armv7和arm64架构，就会超过200M。
