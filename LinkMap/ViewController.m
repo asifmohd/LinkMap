@@ -35,16 +35,16 @@
     
     _contentTextView.editable = NO;
     
-    _contentTextView.string = @"使用方式：\n\
-    1.在XCode中开启编译选项Write Link Map File \n\
-    XCode -> Project -> Build Settings -> 把Write Link Map File选项设为yes，并指定好linkMap的存储位置 \n\
-    2.工程编译完成后，在编译目录里找到Link Map文件（txt类型） \n\
-    默认的文件地址：~/Library/Developer/Xcode/DerivedData/XXX-xxxxxxxxxxxxx/Build/Intermediates/XXX.build/Debug-iphoneos/XXX.build/ \n\
-    3.回到本应用，点击“选择文件”，打开Link Map文件  \n\
-    4.点击“开始”，解析Link Map文件 \n\
-    5.点击“输出文件”，得到解析后的Link Map文件 \n\
-    6. * 输入目标文件的关键字(例如：libIM)，然后点击“开始”。实现搜索功能 \n\
-    7. * 勾选“分组解析”，然后点击“开始”。实现对不同库的目标文件进行分组";
+    _contentTextView.string = @"How to use:\n\
+     1. Turn on the compile option Write Link Map File in XCode \n\
+     XCode -> Project -> Build Settings -> Set the Write Link Map File option to yes, and specify the storage location of the linkMap\n\
+     2. After the project is compiled, find the Link Map file (txt type) in the compilation directory \n\
+     Default file location: ~/Library/Developer/Xcode/DerivedData/XXX-xxxxxxxxxxxxx/Build/Intermediates/XXX.build/Debug-iphoneos/XXX.build/ \n\
+     3. Go back to the app, click \"Select File\" to open the Link Map file \n\
+     4. Click \"Start\" to parse the Link Map file \n\
+     5. Click \"Output File\" to get the parsed Link Map file \n\
+     6. * Enter the keyword of the target file (eg: libIM), then click \"Start\". Implement search functionality \n\
+     7. * Check \"Group by modules\", then click \"Start\". Implements grouping of object files from different libraries";
 }
 
 - (IBAction)chooseFile:(id)sender {
@@ -65,7 +65,7 @@
 
 - (IBAction)analyze:(id)sender {
     if (!_linkMapFileURL || ![[NSFileManager defaultManager] fileExistsAtPath:[_linkMapFileURL path] isDirectory:nil]) {
-        [self showAlertWithText:@"请选择正确的Link Map文件路径"];
+        [self showAlertWithText:@"Please select the correct Link Map file path"];
         return;
     }
     
@@ -74,7 +74,7 @@
         
         if (![self checkContent:content]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self showAlertWithText:@"Link Map文件格式有误"];
+                [self showAlertWithText:@"Link Map wrong file format"];
             });
             return ;
         }
@@ -173,7 +173,7 @@
 }
 
 - (void)buildResultWithSymbols:(NSArray *)symbols {
-    self.result = [@"文件大小\t文件名称\r\n\r\n" mutableCopy];
+    self.result = [@"File Size\tFile Name\r\n\r\n" mutableCopy];
     NSUInteger totalSize = 0;
     
     __block NSString *searchKey;
@@ -194,12 +194,12 @@
         }
     }
     
-    [_result appendFormat:@"\r\n总大小: %.2fM\r\n",(totalSize/1024.0/1024.0)];
+    [_result appendFormat:@"\r\nTotal size: %.2fM\r\n",(totalSize/1024.0/1024.0)];
 }
 
 
 - (void)buildCombinationResultWithSymbols:(NSArray *)symbols {
-    self.result = [@"库大小\t库名称\r\n\r\n" mutableCopy];
+    self.result = [@"Library size\tLibrary Name\r\n\r\n" mutableCopy];
     NSUInteger totalSize = 0;
     
     NSMutableDictionary *combinationMap = [[NSMutableDictionary alloc] init];
@@ -243,7 +243,7 @@
         }
     }
     
-    [_result appendFormat:@"\r\n总大小: %.2fM\r\n",(totalSize/1024.0/1024.0)];
+    [_result appendFormat:@"\r\nTotal Size: %.2fM\r\n",(totalSize/1024.0/1024.0)];
 }
 
 - (IBAction)ouputFile:(id)sender {
@@ -290,7 +290,7 @@
 - (void)showAlertWithText:(NSString *)text {
     NSAlert *alert = [[NSAlert alloc]init];
     alert.messageText = text;
-    [alert addButtonWithTitle:@"确定"];
+    [alert addButtonWithTitle:@"Sure"];
     [alert beginSheetModalForWindow:[NSApplication sharedApplication].windows[0] completionHandler:^(NSModalResponse returnCode) {
     }];
 }
