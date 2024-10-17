@@ -210,7 +210,13 @@
             [name containsString:@"("]) {
             NSRange range = [name rangeOfString:@"("];
             NSString *component = [name substringToIndex:range.location];
-            
+
+            // Check if the component contains '[' and extract the substring up to the first occurrence of '['
+            NSRange bracketRange = [component rangeOfString:@"["];
+            if (bracketRange.location != NSNotFound) {
+                component = [component substringToIndex:bracketRange.location];
+            }
+
             SymbolModel *combinationSymbol = [combinationMap objectForKey:component];
             if (!combinationSymbol) {
                 combinationSymbol = [[SymbolModel alloc] init];
